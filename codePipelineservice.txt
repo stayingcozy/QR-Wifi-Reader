@@ -8,4 +8,4 @@ ExecStartPre=/bin/sleep 11
 ExecStart=/usr/bin/python3 /home/neuralfetch/BLEpi/codePipeline.py
 
 [Install]
-WantedBy=bluetooth.target
+WantedBy=multi-user.target

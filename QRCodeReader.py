@@ -5,13 +5,6 @@ import time
 from wifiConfig import write_wifi_credentials
 from wifiStatus import wifi_check
 
-# TODO
-# Replace wifi config file and system command in js to python - replace bleno_connect.js
-# combine both to replace BLEpiPipeline.py
-# Replace BLEpiservice.txt to QRCodeReaderservice.txt with similar format
-# Test
-# if works remove all js, package files
-
 # Initialize the camera
 cap = cv2.VideoCapture(0)
 

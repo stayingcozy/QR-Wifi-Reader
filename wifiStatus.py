@@ -22,12 +22,4 @@ def wifi_check():
 
 
 if __name__ == "__main__":
-
-    # # Example usage:
-    # def callback(result):
-    #     if result == 1:
-    #         print('WiFi is connected.')
-    #     else:
-    #         print('WiFi is not connected.')
-
     wifi_check()

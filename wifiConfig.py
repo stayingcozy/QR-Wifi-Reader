@@ -34,7 +34,7 @@ def restart_wifi_interface():
 len_arg = len(sys.argv)
 
 if len_arg == 4:
-    
+
     wifi_network = {
         'ssid': sys.argv[1],
         'psk': sys.argv[2],

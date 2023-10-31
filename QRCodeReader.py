@@ -36,7 +36,8 @@ def process_raw_qr(retval, decoded_info):
             write_wifi_credentials(wifiCredentials)
 
             wifiConfig_path = os.path.join(os.path.dirname(__file__), "wifiConfig.py")
-            subprocess.run(["sudo", "python", wifiConfig_path,  wifiCredentials["ssid"], wifiCredentials["psk"], wifiCredentials["key_mgmt"]
+            subprocess.run(["sudo", "bash", "-c",
+                            f"python {wifiConfig_path} {wifiCredentials['ssid']} {wifiCredentials['psk']} {wifiCredentials['key_mgmt']}"
                             ], text=True, capture_output=True)
 
             # qrDetected = True

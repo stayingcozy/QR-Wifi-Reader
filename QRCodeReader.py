@@ -1,5 +1,7 @@
 import cv2
 import time
+import subprocess
+import os
 
 # Local imports
 from wifiConfig import write_wifi_credentials
@@ -33,7 +35,11 @@ def process_raw_qr(retval, decoded_info):
 
             write_wifi_credentials(wifiCredentials)
 
-            qrDetected = True
+            wifiConfig_path = os.path.join(os.path.dirname(__file__), "wifiConfig.py")
+            subprocess.run(["sudo", "python", wifiConfig_path,  wifiCredentials["ssid"], wifiCredentials["psk"], wifiCredentials["key_mgmt"]
+                            ], text=True, capture_output=True)
+
+            # qrDetected = True
             return True
 
     return False

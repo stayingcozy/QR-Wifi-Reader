@@ -1,4 +1,5 @@
 import os
+import sys
 
 def write_wifi_credentials(wifi_network):
     # Create the content for the wpa_supplicant.conf file
@@ -30,13 +31,14 @@ def restart_wifi_interface():
     os.system('wpa_cli -i wlan0 reconfigure')
 
 
-if __name__ == "__main__":
+len_arg = len(sys.argv)
 
-    # Example usage:
+if len_arg == 4:
+    
     wifi_network = {
-        'ssid': 'codyciPhone',
-        'psk': 'airbrakes',
-        'key_mgmt': 'WPA-PSK'  # Modify this according to your needs
+        'ssid': sys.argv[1],
+        'psk': sys.argv[2],
+        'key_mgmt': sys.argv[3]  # Modify this according to your needs
     }
 
     write_wifi_credentials(wifi_network)

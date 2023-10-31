@@ -5,7 +5,38 @@ import time
 from wifiConfig import write_wifi_credentials
 from wifiStatus import wifi_check
 
+def wait_for_wifi_connect(qrDetected):
+    
+    # If qr code is detected wait for comp to connect to wifi
+    start = time.time()
+    while qrDetected:
+        tdelta = time.time() - start
+        if tdelta < timeToWait:
+            if wifi_check():
+                break
+        else:
+            return False
+        
+    return False
 
+def process_raw_qr(retval, decoded_info):
+
+    for info in decoded_info:
+
+        # Process raw input
+        str_retval = str(retval)
+        split_info = str_retval.split(" ; ")
+
+        if len(split_info) == 2:
+            wifiCredentials["ssid"] = split_info[0]
+            wifiCredentials["psk"] = split_info[1]
+
+            write_wifi_credentials(wifiCredentials)
+
+            qrDetected = True
+            return True
+
+    return False
 
 # Initialize the camera
 cap = cv2.VideoCapture(0)
@@ -22,15 +53,7 @@ timeToWait = 10 # Wait in seconds for wifi to connect after QR detection
 
 while True:
 
-    # If qr code is detected wait for comp to connect to wifi
-    start = time.time()
-    while qrDetected:
-        tdelta = time.time() - start
-        if tdelta < timeToWait:
-            if wifi_check():
-                break
-        else:
-            qrDetected = False
+    qrDetected = wait_for_wifi_connect(qrDetected)
 
     if wifi_check():
         # Connected to wifi break loop
@@ -48,19 +71,7 @@ while True:
     retval, decoded_info, _ = detector.detectAndDecode(gray)
 
     if retval:
-        for info in decoded_info:
-
-            # Process raw input
-            str_retval = str(retval)
-            split_info = str_retval.split(" ; ")
-
-            if len(split_info) == 2:
-                wifiCredentials["ssid"] = split_info[0]
-                wifiCredentials["psk"] = split_info[1]
-
-                write_wifi_credentials(wifiCredentials)
-
-                qrDetected = True
+        qrDetected = process_raw_qr(retval, decoded_info)
 
     cv2.imshow("QR Code Detection", gray)
 

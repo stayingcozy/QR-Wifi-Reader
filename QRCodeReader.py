@@ -9,12 +9,15 @@ def wait_for_wifi_connect(qrDetected):
     
     # If qr code is detected wait for comp to connect to wifi
     start = time.time()
-    while not wifi_check():
+    while qrDetected:
         tdelta = time.time() - start
-        if tdelta > timeToWait:
-                return False
+        if tdelta < timeToWait:
+            if wifi_check():
+                break
+        else:
+            return False
         
-    return True
+    return False
 
 def process_raw_qr(retval, decoded_info):
 

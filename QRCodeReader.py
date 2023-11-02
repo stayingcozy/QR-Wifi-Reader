@@ -1,7 +1,5 @@
 import cv2
 import time
-import subprocess
-import os
 
 # Local imports
 from wifiConfig import write_wifi_credentials
@@ -11,15 +9,12 @@ def wait_for_wifi_connect(qrDetected):
     
     # If qr code is detected wait for comp to connect to wifi
     start = time.time()
-    while qrDetected:
+    while not wifi_check():
         tdelta = time.time() - start
-        if tdelta < timeToWait:
-            if wifi_check():
-                break
-        else:
-            return False
+        if tdelta > timeToWait:
+                return False
         
-    return False
+    return True
 
 def process_raw_qr(retval, decoded_info):
 
@@ -35,18 +30,13 @@ def process_raw_qr(retval, decoded_info):
 
             write_wifi_credentials(wifiCredentials)
 
-            wifiConfig_path = os.path.join(os.path.dirname(__file__), "wifiConfig.py")
-            subprocess.run(["sudo", "bash", "-c",
-                            f"python {wifiConfig_path} {wifiCredentials['ssid']} {wifiCredentials['psk']} {wifiCredentials['key_mgmt']}"
-                            ], text=True, capture_output=True)
-
             # qrDetected = True
             return True
 
     return False
 
 # Initialize the camera
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # Default wifi credentials
 wifiCredentials = {

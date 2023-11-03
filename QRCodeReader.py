@@ -28,6 +28,7 @@ def process_raw_qr(retval, decoded_info):
         split_info = str_retval.split(" ; ")
 
         if len(split_info) == 2:
+            print("Detected QR Code")
             wifiCredentials["ssid"] = split_info[0]
             wifiCredentials["psk"] = split_info[1]
 

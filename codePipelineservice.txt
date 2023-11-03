@@ -8,4 +8,4 @@ ExecStartPre=/bin/sleep 11
 ExecStart=/usr/bin/python3 /home/neuralfetch/runPetCamera/codePipeline.py
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=network-online.target

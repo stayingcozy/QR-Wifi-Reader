@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Environment="HOME=/home/neuralfetch"
 ExecStartPre=/bin/sleep 11
-ExecStart=/usr/bin/python3 /home/neuralfetch/BLEpi/codePipeline.py
+ExecStart=/usr/bin/python3 /home/neuralfetch/runPetCamera/codePipeline.py
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=network-online.target

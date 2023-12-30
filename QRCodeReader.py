@@ -2,8 +2,8 @@ import cv2
 import time
 
 # Local imports
-from wifiConfig import write_wifi_credentials
-from wifiStatus import wifi_check
+from wifiConfig import write_wifi_credentials_lp
+from wifiStatus import wifi_check_lp
 from codePipeline import main
 from uidWrite import write_uid
 
@@ -14,7 +14,7 @@ def wait_for_wifi_connect(qrDetected, timeToWait):
     while qrDetected:
         tdelta = time.time() - start
         if tdelta < timeToWait:
-            if wifi_check():
+            if wifi_check_lp():
                 break
         else:
             return False
@@ -34,7 +34,7 @@ def process_raw_qr(retval, decoded_info, wifiCredentials):
             wifiCredentials["ssid"] = split_info[0]
             wifiCredentials["psk"] = split_info[1]
 
-            write_wifi_credentials(wifiCredentials)
+            write_wifi_credentials_lp(wifiCredentials)
 
             # qrDetected = True
             return True
@@ -46,7 +46,7 @@ def process_raw_qr(retval, decoded_info, wifiCredentials):
             uid= split_info[2]
 
             write_uid(uid)
-            write_wifi_credentials(wifiCredentials)
+            write_wifi_credentials_lp(wifiCredentials)
 
             # qrDetected = True
             return True
@@ -71,7 +71,7 @@ def QRCodeReader_main():
 
         qrDetected = wait_for_wifi_connect(qrDetected, timeToWait)
 
-        if wifi_check():
+        if wifi_check_lp():
             # Connected to wifi break loop
             break
 

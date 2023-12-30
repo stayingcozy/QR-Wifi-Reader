@@ -1,4 +1,5 @@
 import subprocess
+import re
 
 def wifi_check():
     # Check wifi status

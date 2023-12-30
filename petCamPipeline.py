@@ -1,7 +1,8 @@
 import os
 import subprocess
 
-from wifiStatus import check_internet_interface
+# from wifiStatus import check_internet_interface
+from wifiConfig import get_wireless_interface
 from QRCodeReader import QRCodeReader_main
 
 def get_home_directory():
@@ -13,7 +14,8 @@ def get_home_directory():
 
 def wifi_check(callback):
     # Check wifi status
-    interface = check_internet_interface()
+    # interface = check_internet_interface()
+    interface = get_wireless_interface()
     command = "iwconfig %s | grep 'ESSID'" % interface
 
     try:

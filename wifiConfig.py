@@ -1,12 +1,23 @@
 import os
+import subprocess
+import re
 
+def get_wireless_interface():
+    # 
+    start_interface = "wlx"
+    result = subprocess.run([f"ip -o link | grep {start_interface}"], text=True, capture_output=True)
+    pattern = re.compile(f"{start_interface}\w*")
+    matches = pattern.findall(result.stdout)
+    print(f"get_wireless_interface {matches[0]}")
+
+    return matches[0]
 
 def write_wifi_credentials_lp(wifi_network):
     # write wifi credentials for le potato
     # Create the content for the /etc/netplan/wireless.yaml file
     wpa_config_content = f"""network:
     wifis:
-        NETWORK DEVICE:
+        "{wifi_network['device']}":
             optional: true
             access-points:
                 "{wifi_network['ssid']}":

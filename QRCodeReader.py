@@ -2,7 +2,7 @@ import cv2
 import time
 
 # Local imports
-from wifiConfig import write_wifi_credentials_lp
+from wifiConfig import write_wifi_credentials_lp, get_wireless_interface
 from wifiStatus import wifi_check_lp
 from uidWrite import write_uid
 
@@ -27,6 +27,8 @@ def process_raw_qr(retval, decoded_info, wifiCredentials):
         # Process raw input
         str_retval = str(retval)
         split_info = str_retval.split(" ; ")
+
+        wifiCredentials["device"] = get_wireless_interface()
 
         if len(split_info) == 2:
             print("Detected QR Code")
@@ -61,6 +63,7 @@ def QRCodeReader_main():
     "ssid": '',
     "psk": '',
     "key_mgmt": 'WPA-PSK',
+    "device": '',
     }
 
     qrDetected = False

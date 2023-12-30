@@ -50,7 +50,7 @@ def check_internet_interface(interface_pattern="wlx"):
         # Use regular expression to find matching interfaces
         pattern = re.compile(f"{interface_pattern}\w*")
         matches = pattern.findall(result.stdout)
-        print(matches)
+        print(matches[0])
 
         if matches:
             return matches[0]

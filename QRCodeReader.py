@@ -4,7 +4,8 @@ import time
 # Local imports
 from wifiConfig import write_wifi_credentials_lp
 from wifiStatus import wifi_check_lp
-from codePipeline import main
+# from codePipeline import main
+from petCamPipeline import main
 from uidWrite import write_uid
 
 def wait_for_wifi_connect(qrDetected, timeToWait):

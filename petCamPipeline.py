@@ -23,7 +23,7 @@ def check_internet_interface(interface_pattern="wlx"):
 
         else:
             print(f"No matching interface found for pattern: {interface_pattern}")
-            return
+            return ""
 
     except Exception as e:
         print(f"Error: {e}")

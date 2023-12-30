@@ -5,7 +5,8 @@ import re
 def get_wireless_interface():
     # 
     start_interface = "wlx"
-    result = subprocess.run([f"ip -o link | grep {start_interface}"], text=True, capture_output=True)
+    result = subprocess.run(f"ip -o link | grep {start_interface}", text=True, capture_output=True)
+
     pattern = re.compile(f"{start_interface}\w*")
     matches = pattern.findall(result.stdout)
     print(f"get_wireless_interface {matches[0]}")

@@ -9,7 +9,7 @@ def get_wireless_interface():
 
     pattern = re.compile(f"{start_interface}\w*")
     matches = pattern.findall(result.stdout)
-    print(f"get_wireless_interface {matches[0]}")
+    # print(f"get_wireless_interface {matches[0]}")
 
     return matches[0]
 

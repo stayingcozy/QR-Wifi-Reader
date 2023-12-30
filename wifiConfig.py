@@ -18,7 +18,7 @@ def write_wifi_credentials_lp(wifi_network):
     # Create the content for the /etc/netplan/wireless.yaml file
     wpa_config_content = f"""network:
     wifis:
-        "{wifi_network['device']}":
+        {wifi_network['device']}:
             optional: true
             access-points:
                 "{wifi_network['ssid']}":

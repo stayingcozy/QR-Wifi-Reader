@@ -1,5 +1,6 @@
 import os
 import subprocess
+import re
 from QRCodeReader import QRCodeReader_main
 
 def get_home_directory():
@@ -7,9 +8,33 @@ def get_home_directory():
 
     return home_directory
 
+def check_internet_interface(interface_pattern="wlx"):
+    try:
+        # Run iwconfig and capture the output
+        result = subprocess.run(["iwconfig"], text=True, capture_output=True)
+
+        # Use regular expression to find matching interfaces
+        pattern = re.compile(f"{interface_pattern}\w*")
+        matches = pattern.findall(result.stdout)
+        print(matches)
+
+        if matches:
+            return matches[0]
+
+        else:
+            print(f"No matching interface found for pattern: {interface_pattern}")
+            return
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+
 def wifi_check(callback):
     # Check wifi status
     command = "iwconfig wlan0 | grep 'ESSID'"
+
+    interface = check_internet_interface()
+    command = "iwconfig %s | grep 'ESSID'" % interface
 
     try:
         result = subprocess.run(

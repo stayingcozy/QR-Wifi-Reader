@@ -2,7 +2,7 @@
     <img src="assets/QR Code Reader Logo.png" width=300 height=300>
 </p>
 
-# QRCodeReader
+# QR Wifi Reader
 Read QR code with WiFi SSID and password information to pass along to the reader on a embedded device with a camera.
 
 ## Usage
